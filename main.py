@@ -2,6 +2,7 @@
 import flet as ft
 from Classes.Message import Message
 from Functions.functions import items_style
+from Classes.ChatMessage import ChatMessage
 
 
 # FUNZIONE DI ESEMPIO PER COMPRENDERE COME AVVIARE L'APPLICAZIONE DESKTOP
@@ -17,18 +18,22 @@ def main(page:  ft.Page):
     def on_message(msg : Message):
         #ft.Text(f"{msg.user}: {msg.text}")
         if msg.message_type == "chat_message":
-            messages.controls.append(items_style(msg))
+            # instanzio la classe ChatMessage creata e passo msg all'oggetto
+            chat = ChatMessage(msg)
         elif msg.message_type == "login_message":
-            messages.controls.append(
-                ft.Text(value=msg.text, italic=True, color=ft.colors.BLACK45, size=12),
-            )
+            chat = ft.Text(message.text, italic=True, color=ft.colors.BLACK45, size=12)
+            
+        messages.controls.append(chat)
         page.update()
         
     page.pubsub.subscribe(on_message)
     
     def send_click(e):
-        page.pubsub.send_all(Message(user= page.session.get("user_name"),text= message.value,message_type="chat_message"))
-        message.value = ""
+        if not message.value:
+            message.error_text = "Devi inserire un messaggio!"
+        else:
+            page.pubsub.send_all(Message(user= page.session.get("user_name"),text= message.value,message_type="chat_message"))
+            message.value = ""
         page.update()
         
         
@@ -72,5 +77,5 @@ def main(page:  ft.Page):
   
   
 # per essere richiamata come webApp utilizzare il parametro ,view=ft.AppView.WEB_BROWSER
-ft.app(target=main,view=ft.AppView.WEB_BROWSER)
+ft.app(target=main)
 
