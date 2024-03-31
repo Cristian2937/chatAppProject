@@ -1,11 +1,16 @@
 import flet as ft
+import numpy as np
+import random
 
+# Funzione per definire lo styling dell'applicazione
 def items_style(message):
     
     return ft.Container(
         content=ft.Text(value= f"{message.user}: {message.text}"),
         alignment=ft.alignment.center_right,
-        height= 100,
+        width= 300,
+        height= 70,
         bgcolor=ft.colors.GREEN_100,
         border_radius= ft.border_radius.all(5),
-    )
+        )
+    
