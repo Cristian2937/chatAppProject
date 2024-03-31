@@ -6,11 +6,13 @@ import random
 def items_style(message):
     
     return ft.Container(
-        content=ft.Text(value= f"{message.user}: {message.text}"),
+        content=ft.Text(value= f"{message.user}: {message.text}",
+                        color= ft.colors.WHITE ),
         alignment=ft.alignment.center_right,
         width= 300,
         height= 70,
-        bgcolor=ft.colors.GREEN_100,
+        bgcolor=ft.colors.DEEP_PURPLE,
+        padding= ft.padding.all(10),
         border_radius= ft.border_radius.all(5),
         )
     
