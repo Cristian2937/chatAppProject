@@ -1,6 +1,5 @@
 import flet as ft
 from Classes.Message import Message as Message
-from Functions.functions import items_style
 
 class ChatMessage(ft.Row):
     def __init__(self, message: Message):
