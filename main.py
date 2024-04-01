@@ -103,15 +103,15 @@ def main(page:  ft.Page):
         ]
     )
         
-    send = ft.ElevatedButton(text="Invia",
-                             on_click=send_click,
-                             content=ft.Row([
-                    ft.Icon(
-                            name=ft.icons.SEND
-                        )
-                ]),
-                on_hover= change_color
-            )
+    send = ft.ElevatedButton(
+        on_click=send_click,
+        content=ft.Row([
+            ft.Icon(
+                name=ft.icons.SEND
+                )
+            ]),
+        on_hover= change_color
+    )
     
     page.add(
             messages,
