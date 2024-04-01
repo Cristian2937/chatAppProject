@@ -1,7 +1,7 @@
 # scaricata la libreria flet tramite il comando "pip install flet"
 import flet as ft
 from Classes.Message import Message
-from Functions.functions import items_style
+from Functions.functions import items_style,change_color
 from Classes.ChatMessage import ChatMessage
 
 
@@ -21,7 +21,7 @@ def main(page:  ft.Page):
             # instanzio la classe ChatMessage creata e passo msg all'oggetto
             chat = ChatMessage(msg)
         elif msg.message_type == "login_message":
-            chat = ft.Text(message.text, italic=True, color=ft.colors.BLACK45, size=12)
+            chat = ft.Text(value=f"{user_name.value} has joined the chat", italic=True, color=ft.colors.BLACK45, size=12)
             
         messages.controls.append(chat)
         page.update()
@@ -47,6 +47,15 @@ def main(page:  ft.Page):
            page.pubsub.send_all(Message(user=user_name.value, text=f"{user_name.value} has joined the chat.", message_type="login_message"))
            page.update()
            
+    def change_color(e):
+        send.content = ft.Row([
+                    ft.Icon(name=ft.icons.SEND,color=ft.colors.WHITE)
+                ])
+        send.on_hover = ft.colors.BLACK45
+        send.color = ft.colors.WHITE
+        send.bgcolor = ft.colors.BLACK45
+        send.update()
+           
            
     
    
@@ -70,12 +79,26 @@ def main(page:  ft.Page):
         content=ft.Column(controls=[user_name],tight=True),
         actions=[ft.ElevatedButton(text="Unisciti alla chat",on_click=join_click)]
     )
+        
+    send = ft.ElevatedButton(text="Invia",
+                             on_click=send_click,
+                             content=ft.Row([
+                    ft.Icon(
+                            name=ft.icons.SEND
+                        )
+                ]),
+                on_hover= change_color
+            )
     
-    send = ft.ElevatedButton(text="Invia",on_click=send_click)
-    
-    page.add(messages,ft.Row(controls=[message,send]))
+    page.add(
+            messages,
+            ft.Row(controls=[message,send]),
+        )
   
   
 # per essere richiamata come webApp utilizzare il parametro ,view=ft.AppView.WEB_BROWSER
-ft.app(target=main)
+ft.app(
+        target=main,
+        assets_dir="assets",
+    )
 
