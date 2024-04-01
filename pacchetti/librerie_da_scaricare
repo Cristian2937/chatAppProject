@@ -1,0 +1,7 @@
+## import base per far partire le librerie
+
+    - pip3 install flet
+
+## in Linux :
+
+    - sudo apt install libmpv1
